@@ -8,10 +8,13 @@ import {
 } from 'react-bootstrap';
 
 import { getMe, deleteBook } from '../utils/API';
+import { REMOVE_BOOK } from '../utils/mutations';
+import {GET_ME } from '../utils/queries'
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
+  const { loading, error, data } = useQuery(GET_ME);
   const [userData, setUserData] = useState({});
 
   // use this to determine if `useEffect()` hook needs to run again
@@ -44,6 +47,7 @@ const SavedBooks = () => {
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
+    const [deleteBook] = useMutation(REMOVE_BOOK);
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -66,9 +70,18 @@ const SavedBooks = () => {
     }
   };
 
-  // if data isn't here yet, say so
-  if (!userDataLength) {
+  if (loading) {
     return <h2>LOADING...</h2>;
+  }
+
+  if (error) {
+    console.error(error);
+    return <h2>Error</h2>;
+  }
+
+    // Save user data obtained from the query to userData state
+  if (data && data.me) {
+    setUserData(data.me);
   }
 
   return (
