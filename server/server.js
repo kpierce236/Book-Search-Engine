@@ -24,7 +24,6 @@ async function startApolloServer() {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
-// if we're in production, serve client/build as static assets
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 
