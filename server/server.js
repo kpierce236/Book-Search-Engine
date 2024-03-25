@@ -3,7 +3,6 @@ const path = require('path');
 const { ApolloServer } = require('apollo-server-express');
 const db = require('./config/connection');
 const routes = require('./routes');
-const { expressMiddleware } = require('@apollo/server/express4');
 const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas');
 
@@ -13,7 +12,10 @@ const PORT = process.env.PORT || 3011;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware
+  context: ({ req }) => {
+    const context = { req }; // Pass req to the context object
+    return authMiddleware(context); // Call your authentication middleware and pass the context
+  },
 });
 
 async function startApolloServer() {
