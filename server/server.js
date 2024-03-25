@@ -10,21 +10,20 @@ const { typeDefs, resolvers } = require('./schemas');
 const app = express();
 const PORT = process.env.PORT || 3011;
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
 
 async function startApolloServer() {
-
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: authMiddleware
+  });
+  
   await server.start();
   
+  server.applyMiddleware({ app });
+
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
-
-  app.use('/graphql', expressMiddleware(server, {
-    context: authMiddleware
-  }));
 
 
   app.use(express.static(path.join(__dirname, '../client/build')));
@@ -45,4 +44,4 @@ async function startApolloServer() {
 
 };
 
-startApolloServer(typeDefs, resolvers);
+startApolloServer();
