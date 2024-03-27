@@ -4,9 +4,18 @@ import Navbar from './components/Navbar';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+
+// Define the base URI for the GraphQL API
+let uri;
+if (process.env.NODE_ENV === 'production') {
+  uri = `${window.location.origin}/graphql`; // Use relative path in production
+} else {
+  uri = 'http://localhost:3001/graphql'; // Use localhost in development
+}
+
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3011/graphql',
+  uri,
 });
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
