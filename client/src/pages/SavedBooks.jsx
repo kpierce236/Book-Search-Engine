@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import {
   Container,
   Card,
@@ -15,7 +14,6 @@ import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
   const { loading, error, data, refetch} = useQuery(GET_ME);
-  //const [userData, setUserData] = useState({});
   
   const userData = data?.me || {};
 
