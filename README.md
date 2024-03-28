@@ -81,7 +81,7 @@ Check out the application functionality in action:
 
 *Click the gif to see the full video* and **[HERE](https://book-search-engine-rjvv.onrender.com/) for deployed app**
 
-[![Demo of the Application](images/demo.gif)](https://drive.google.com/file/d/1Hw8WsIdMjc00u1pjAm8CH0KwUb3RWwuP/view)
+[![Demo of the Application](images/demo.gif)](https://drive.google.com/file/d/1jkxg8xcyCRwB-q9hc2f3zYhfnYz6Xs98/view)
 
 
 ## Credits
