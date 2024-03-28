@@ -1,11 +1,11 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: __dirname + '/../.env' });
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const db = require('./config/connection');
 const routes = require('./routes');
 const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas');
-
 
 const app = express();
 const PORT = process.env.PORT || 3001;
